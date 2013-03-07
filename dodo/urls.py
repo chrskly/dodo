@@ -15,4 +15,6 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     # url(r'^admin/', include(admin.site.urls)),
     url(r'^$', 'web.views.view_tasks'),
+    url(r'^add-task/', 'web.views.add_task'),
+    url(r'^complete-task/', 'web.views.complete_task'),
 )
