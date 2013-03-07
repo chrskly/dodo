@@ -1,0 +1,21 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="/static/style.css" type="text/css" />
+  </head>
+  <body>
+    <div class="tasks">
+      <h1>You have {{ active_tasks.count }} things to do</h1>
+      {% for task in active_tasks %}
+      <div class="task-box">
+        <h2>{{ task.summary }}</h2>
+        <p class="task-date">{{ task.date }}</p>
+      </div>
+      {% endfor %}
+      <hr>
+      <form action="/" method="post">{% csrf_token %}
+      {{ task_form.as_p }}
+      <input type="submit" value="Submit" />
+      </form>
+    </div>
+  </body>
+</html>
