@@ -52,12 +52,40 @@ table {
 }
 
 .task-box {
-  background: #EEE;
   margin-top: 3px;
   margin-bottom: 3px;
   padding: 3px;
+  height: 30px;
+  background: #EEE;
+  width: 560px;
 }
 
 .task-date {
   font-size: 12px;
+}
+
+.task-summary p,form {
+  display: inline;
+}
+
+.task-info {
+  width: 150px;
+  float: left;
+  background: #EEE;
+}
+
+.task-summary {
+  width: 400px;
+  float: left;
+  background: #EEE;
+}
+
+.done-link {
+  text-decoration: none;
+  color: #0000AA;
+}
+
+.todo-count {
+  font-size: 20px;
+  font-weight: bold;
 }

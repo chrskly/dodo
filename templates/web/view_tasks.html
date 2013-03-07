@@ -4,18 +4,39 @@
   </head>
   <body>
     <div class="tasks">
-      <h1>You have {{ active_tasks.count }} things to do</h1>
+      <p class="todo-count">You have {{ active_tasks.count }} things to do</p>
       {% for task in active_tasks %}
       <div class="task-box">
-        <h2>{{ task.summary }}</h2>
-        <p class="task-date">{{ task.date }}</p>
+        <div class="task-info">
+          <p class="task-date">{{ task.date }}</p>
+          <form id="complete_{{ task.id }}" action="/complete-task/" method="POST">{% csrf_token %}
+            <input type="hidden" name="task_id" value="{{ task.id }}">
+            <a class="done-link" href="javascript:{}" onclick="document.getElementById('complete_{{ task.id}}').submit(); return false;">done</a>
+          </form>
+        </div>
+        <div class="task-summary">
+          <p class="task-summary">{{ task.summary }}</p>
+        </div>
       </div>
       {% endfor %}
       <hr>
-      <form action="/" method="post">{% csrf_token %}
-      {{ task_form.as_p }}
+      <form action="/add-task/" method="post">{% csrf_token %}
+      {{ add_task_form.as_p }}
       <input type="submit" value="Submit" />
       </form>
+      <!-- Complete Tasks list -->
+      {% for task in complete_tasks %}
+      <div class="task-box">
+        <div class="task-info">
+          <p class="task-date">{{ task.complete_date }}</p>
+        </div>
+        <div class="task-summary">
+          <p class="task-summary">{{ task.summary }}</p>
+        </div>
+      </div>
+        
+      {% endfor %}
+      <!-- end Complete Tasks --> 
     </div>
   </body>
 </html>
