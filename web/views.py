@@ -3,6 +3,7 @@ import datetime
 from django.template import Context, loader
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
+from django.utils.timezone import utc
 from web.models import *
 
 
@@ -34,7 +35,23 @@ def view_tasks(request):
     for active_task in active_tasks:
         active_task.complete_task_form = CompleteTaskForm()
         active_task.complete_task_form.task_id = int(active_task.id)
-    complete_tasks = Task.objects.filter(complete=True).order_by('date')
+    # Group complete tasks by day for summary of things done
+    now = datetime.datetime.now().replace(tzinfo=utc)
+    monday_found = False
+    complete_tasks = []
+    minus_days = 0
+    while not monday_found:
+        the_before_time = datetime.datetime(now.year, now.month, now.day, 23, 59).replace(tzinfo=utc) \
+            - datetime.timedelta(days=minus_days)
+        print "the_before_time %s" % the_before_time 
+        t_tasks = Task.objects.filter(complete=True, complete_date__lt=the_before_time).order_by('date')
+        print "t_tasks %s" % t_tasks
+        complete_tasks.append( t_tasks )
+        minus_days += 1
+        if the_before_time.weekday() == 1:
+            monday_found = True
+    #complete_tasks = Task.objects.filter(complete=True).order_by('date')
+    print "Complete tasks %s" % complete_tasks
     return render(request, 'web/view_tasks.html', {
         'active_tasks' : active_tasks,
         'complete_tasks' : complete_tasks,
