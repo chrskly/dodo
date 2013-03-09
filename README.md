@@ -26,3 +26,5 @@ Here's an NGinx conf snippet which will proxy through the requests and do auth f
             proxy_pass http://localhost:8080/;
         }
     }
+
+This app uses the very awesome Flat-UI kit which you can find over [here](http://designmodo.com/flat-free/).
