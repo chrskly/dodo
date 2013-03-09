@@ -6,6 +6,8 @@ class Task(models.Model):
     complete = models.BooleanField()
     complete_date = models.DateTimeField(blank=True, null=True)
     complete_task_form = None
+    # tmp variable for holding comments as they're handed back to the template when being rendered
+    comments = None
 
 class Comment(models.Model):
     task = models.ForeignKey(Task)
