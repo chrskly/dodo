@@ -1,42 +1,54 @@
 <html>
   <head>
     <link rel="stylesheet" href="/static/style.css" type="text/css" />
+    <link rel="stylesheet" href="/static/flat/css/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="/static/flat/css/flat-ui.css" type="text/css" />
   </head>
   <body>
-    <div class="tasks">
+    <div class="header">
       <p class="todo-count">You have {{ active_tasks.count }} things to do</p>
-      {% for task in active_tasks %}
-      <div class="task-box">
-        <div class="task-info">
-          <p class="task-date">{{ task.date }}</p>
-          <form id="complete_{{ task.id }}" action="/complete-task/" method="POST">{% csrf_token %}
-            <input type="hidden" name="task_id" value="{{ task.id }}">
-            <a class="done-link" href="javascript:{}" onclick="document.getElementById('complete_{{ task.id}}').submit(); return false;">done</a>
-          </form>
-        </div>
-        <div class="task-summary">
-          <p class="task-summary">{{ task.summary }}</p>
+    </div>
+    <div class="content">
+      <div class="task-list">
+        {% for task in active_tasks %}
+        <div class="task-box">
+          <div class="task-info">
+            <p class="task-date">{{ task.date }}</p>
+          </div>
+          <div class="task-summary"><p>{{ task.summary }}</p></div>
+          <div class="task-done">
+            <form id="complete_{{ task.id }}" action="/complete-task/" method="POST">{% csrf_token %}
+              <input type="hidden" name="task_id" value="{{ task.id }}">
+              <!--<a class="btn btn-block" href="javascript:{}" onclick="document.getElementById('complete_{{ task.id}}').submit(); return false;">done</a>-->
+              <a href="javascript:{}" onclick="document.getElementById('complete_{{ task.id}}').submit(); return false;" style="text-decoration:none"><span class="fui-checkmark-24"></span></a>
+              <a href="#" style="text-decoration:none"><span class="fui-bubble-24"></span></a>
+            </form>
+          </div>
+        </div> <!-- end task-box -->
+        {% endfor %}
+      </div> <!-- end task-open -->
+
+      <div class="task-review">
+        <h2 class="no-top-padding">Add Task</h2>
+        <form action="/add-task/" method="post">{% csrf_token %}
+          <input type="text" name="summary" class="span3 add-task-text">
+        </form>
+        <h2 class="no-top-padding">Complete Tasks</h2>
+        <div class="task-list">
+          {% for day in complete_tasks %}
+            {% for t in day %}
+            <div class="task-box">
+              <div class="task-info">
+                <p class="task-date">{{ t.complete_date }}</p>
+              </div>
+              <div class="task-summary">
+                <p class="task-summary">{{ t.summary }}</p>
+              </div>
+            </div>
+            {% endfor %} 
+          {% endfor %}
         </div>
       </div>
-      {% endfor %}
-      <hr>
-      <form action="/add-task/" method="post">{% csrf_token %}
-      {{ add_task_form.as_p }}
-      <input type="submit" value="Submit" />
-      </form>
-      <!-- Complete Tasks list -->
-      {% for task in complete_tasks %}
-      <div class="task-box">
-        <div class="task-info">
-          <p class="task-date">{{ task.complete_date }}</p>
-        </div>
-        <div class="task-summary">
-          <p class="task-summary">{{ task.summary }}</p>
-        </div>
-      </div>
-        
-      {% endfor %}
-      <!-- end Complete Tasks --> 
     </div>
   </body>
 </html>
