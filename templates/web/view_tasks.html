@@ -11,7 +11,7 @@
     <div class="content">
       <div class="task-list">
         {% for task in active_tasks %}
-        <div class="task-box">
+        <div class="task-box tile">
           <div class="task-info">
             <p class="task-date">{{ task.date }}</p>
           </div>
@@ -37,7 +37,7 @@
         <div class="task-list">
           {% for day in complete_tasks %}
             {% for t in day %}
-            <div class="task-box">
+            <div class="task-box tile">
               <div class="task-info">
                 <p class="task-date">{{ t.complete_date }}</p>
               </div>
