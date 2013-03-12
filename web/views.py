@@ -40,15 +40,18 @@ def view_tasks(request):
     monday_found = False
     complete_tasks = []
     minus_days = 0
+    witching_hour = datetime.datetime(now.year, now.month, now.day, 23, 59).replace(tzinfo=utc)
     while not monday_found:
-        the_before_time = datetime.datetime(now.year, now.month, now.day, 23, 59).replace(tzinfo=utc) \
-            - datetime.timedelta(days=minus_days)
-        print "the_before_time %s" % the_before_time 
-        t_tasks = Task.objects.filter(complete=True, complete_date__lt=the_before_time).order_by('date')
+        before_this_time = witching_hour - datetime.timedelta(days=minus_days)
+        but_after_this_time = witching_hour - datetime.timedelta(days=minus_days + 1)
+        print "Between %s and %s" % (before_this_time, but_after_this_time)
+        t_tasks = Task.objects.filter(complete=True, complete_date__lt=before_this_time, complete_date__gt=but_after_this_time).order_by('-complete_date')
         print "t_tasks %s" % t_tasks
         complete_tasks.append( t_tasks )
         minus_days += 1
-        if the_before_time.weekday() == 1:
+        if before_this_time.weekday() == 0:
+            monday_found = True
+        if minus_days > 6:
             monday_found = True
     #complete_tasks = Task.objects.filter(complete=True).order_by('date')
     print "Complete tasks %s" % complete_tasks
