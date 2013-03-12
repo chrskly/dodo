@@ -9,6 +9,9 @@ class Task(models.Model):
     # tmp variable for holding comments as they're handed back to the template when being rendered
     comments = None
 
+    def __unicode__(self):
+        return self.summary
+
 class Comment(models.Model):
     task = models.ForeignKey(Task)
     date = models.DateTimeField()
