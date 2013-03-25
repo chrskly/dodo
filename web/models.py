@@ -1,4 +1,8 @@
+import datetime
+from django.utils.timezone import utc
+from django.utils.dateformat import *
 from django.db import models
+import math
 
 class Task(models.Model):
     summary = models.CharField(max_length=4096)
@@ -11,6 +15,15 @@ class Task(models.Model):
 
     def __unicode__(self):
         return self.summary
+
+    def days_old(self):
+        now = datetime.datetime.now().replace(tzinfo=utc)
+        difference = self.date - now
+        return int(math.fabs(difference.days))
+
+    def pretty_date(self):
+        df = DateFormat(self.complete_date)
+        return df.format('D jS F')
 
 class Comment(models.Model):
     task = models.ForeignKey(Task)
