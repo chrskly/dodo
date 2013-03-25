@@ -11,19 +11,20 @@
     <div class="content">
       <div class="task-list">
         {% for task in active_tasks %}
-        <div class="task-box tile">
+        <div class="task-box tile" style="clear:both">
           <div class="task-info">
-            <p class="task-date">{{ task.date }}</p>
+            <p class="task-date">{{ task.days_old }} days old</p>
           </div>
-          <div class="task-summary"><p>{{ task.summary }}</p></div>
+          <div class="task-summary text-left"><p>{{ task.summary }}</p></div>
           <div class="task-done">
             <form id="complete_{{ task.id }}" action="/complete-task/" method="POST">{% csrf_token %}
               <input type="hidden" name="task_id" value="{{ task.id }}">
-              <!--<a class="btn btn-block" href="javascript:{}" onclick="document.getElementById('complete_{{ task.id}}').submit(); return false;">done</a>-->
               <a href="javascript:{}" onclick="document.getElementById('complete_{{ task.id}}').submit(); return false;" style="text-decoration:none"><span class="fui-checkmark-24"></span></a>
               <a href="#" style="text-decoration:none"><span class="fui-bubble-24"></span></a>
+              <a href="#" style="text-decoration:none"><span class="fui-cross-24"></span></a>
             </form>
           </div>
+          <br class="clear" />
         </div> <!-- end task-box -->
 
         {% endfor %}
@@ -37,17 +38,10 @@
         <h2 class="no-top-padding">Complete Tasks</h2>
         <div class="task-list">
           {% for day in complete_tasks %}
+            <h3>{{ day.0.pretty_date }}</h3>
             {% for t in day %}
-            <div class="task-box tile">
-              <div class="task-info">
-                <p class="task-date">{{ t.complete_date }}</p>
-              </div>
-              <div class="task-summary">
-                <p class="task-summary">{{ t.summary }}</p>
-              </div>
-            </div>
+              <li>{{ t.summary }}</li>
             {% endfor %} 
-            <br>
           {% endfor %}
         </div>
       </div>
