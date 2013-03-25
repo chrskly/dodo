@@ -5,7 +5,6 @@
   background: #34495E;
   margin: 5px;
   padding: 10px 0px 1px 10px;
-  color: white;
   opacity: 0.8;
 }
 
@@ -24,7 +23,7 @@
   margin-top: 3px;
   margin-bottom: 3px;
   padding: 3px;
-  height: 60px;
+  height: 20px;
   width: 450px;
   background: #EEE;
 }
@@ -33,23 +32,25 @@
   font-size: 12px;
   margin: 0;
   padding: 0;
+  float: left;
 }
 
 .task-summary p,form {
   display: inline;
   padding-top: 5px;
-  padding-left: 10px;
+  padding-left: 5px;
   font-size: 14px;
 }
 
 .task-info {
-  width: 100px;
   float: left;
+  height: 100%;
 }
 
 .task-summary {
-  width: 280px;
+  width: 310px;
   float: left;
+  padding-left: 5px;
 }
 
 .done-link {
@@ -60,6 +61,7 @@
 .todo-count {
   font-size: 20px;
   font-weight: bold;
+  color: white;
 }
 
 .task-review {
@@ -87,4 +89,12 @@
 .no-top-padding {
   padding-top: 0px;
   margin-top: 0px;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.clear {
+  clear: both;
 }
