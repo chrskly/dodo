@@ -80,6 +80,11 @@
   float: right;
   padding-top: 5px;
   padding-right: 5px;
+  color: #34495e;
+}
+
+.task-done a {
+  color: #34495E;
 }
 
 .add-task-text {
