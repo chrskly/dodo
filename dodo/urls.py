@@ -17,4 +17,5 @@ urlpatterns = patterns('',
     url(r'^$', 'web.views.view_tasks'),
     url(r'^add-task/', 'web.views.add_task'),
     url(r'^complete-task/', 'web.views.complete_task'),
+    url(r'^delete-task/', 'web.views.delete_task'),
 )

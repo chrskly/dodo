@@ -41,6 +41,9 @@ class AddTaskForm(forms.Form):
 class CompleteTaskForm(forms.Form):
     task_id = forms.CharField()
 
+class DeleteTaskForm(forms.Form):
+    task_id = forms.CharField()
+
 class AddCommentForm(forms.Form):
     comment = forms.CharField(max_length=4096)
 

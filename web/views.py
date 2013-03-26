@@ -26,6 +26,16 @@ def complete_task(request):
             my_task.complete_date = now
             my_task.save()
     return HttpResponseRedirect('/')
+
+def delete_task(request):
+    if request.method == "POST":
+        delete_task_form = DeleteTaskForm(request.POST)
+        if delete_task_form.is_valid():
+            now = datetime.datetime.now()
+            my_task = Task.objects.filter(id=delete_task_form.cleaned_data['task_id'])[0]
+            my_task.delete()
+    return HttpResponseRedirect('/')
+    
     
         
 
