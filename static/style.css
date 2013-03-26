@@ -76,7 +76,7 @@
 }
 
 .task-done {
-  width: 50px;
+  width: 55px;
   float: right;
   padding-top: 5px;
   padding-right: 5px;
@@ -102,4 +102,13 @@
 
 .clear {
   clear: both;
+}
+
+.inline {
+  display: inline;
+}
+
+.zero {
+  padding: 0;
+  margin: 0;
 }
